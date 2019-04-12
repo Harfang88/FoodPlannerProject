@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    {# breadcrumb #}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white justify-content-center border-bottom">
+            <li class="breadcrumb-item"><a href="{{ path('backend_user_index') }}">Utilisateurs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+        </ol>
+    </nav>
+    <h2 class="text-center mt-5 mb-3">Modifier le role</h2>
+
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+            <div class="col-lg-8 ">
+                <div class="bg-light py-3 px-4 rounded">
+
+                    {# Current Role and username #}
+                    <h3>{{user.username}} : </h3>
+                    <p class="font-italic h6">Role actuel : {{user.role}}</p>
+
+                    {# Role Form #}
+                    {{form_start(form)}}
+                    {{form_widget(form)}}
+                    <button type="submit" class="btn btn-success">Valider</button>
+
+                    {# Back #}
+                    <a href="{{path('backend_user_index')}}" class="btn btn-secondary ml-1">Annuler</a>
+                    {{form_end(form)}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

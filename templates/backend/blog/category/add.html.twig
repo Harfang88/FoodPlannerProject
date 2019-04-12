@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Catégorie{% endblock %}
+
+{% block body %}
+   <div class="container mt-5 bg-light">
+        <h2 class="text-center">Ajouter une catégorie</h2>
+
+        {# Add Form #}
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        <a href="{{path('backend_blog_category_add')}}"><button type="submit" class="btn btn-success">Ajouter</button></a>
+        {{form_end(form)}}
+
+        {# Back #}
+        <div class="mt-2 backLink">
+            <a href="{{path('backend_blog_category_index')}}">Retour</a>
+        </div>
+    </div>
+{% endblock %}

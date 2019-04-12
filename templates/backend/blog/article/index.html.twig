@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+   
+    <div class="row justify-content-center mt-5 mb-3">
+        <div class="pr-3"><h2 class="text-center">Articles</h2></div>
+        <div><a href="{{path('backend_blog_article_add')}}" class="btn btn-success"><i class="fas fa-edit"></i>Ajouter un article</a></div>
+    </div>
+
+    {# Flash message #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{label}} my-2 text-center font-weight-bold animated zoomOut delay-3s">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+            <div class="col-lg-8 px-0">
+        
+                {# sorting of properties based on query components #}
+                <span>Trier par :</span>
+
+
+                <span class=""><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(articles, 'Titre', 'a.title') }}</span>
+
+                <span class=" ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(articles, 'Date', 'a.createdAt') }}</span>
+
+
+                {% if articles.isSorted('a.createdAt') or articles.isSorted('a.title') %}
+                    <span class=" ml-4">
+                        <i class="fas fa-ban text-danger"></i> <a href="{{ path('backend_blog_article_index') }}" class="text-danger"> Supprimer les filtres</a>
+                    </span>
+                {% endif %}
+        
+                {# Tableau Article #}
+                <div class="table-responsive mt-2">
+                    <table class="table bg-light border">
+                        <thead>
+                            <tr>
+                                <th class="">#</th>
+                                <th class="">Titre</th>
+                                <th class="">Catégories</th>
+                                <th class="">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles %}
+                                <tr>
+                                    <th>{{article.id}}</th>
+                                    <td>
+                                        {{article.title}}
+                                        {# Modal trigger #}
+                                        <a data-toggle="modal" data-target="#article{{ article.id }}" class="text-primary">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="article{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalScrollableTitle">{{ article.title }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ article.image }}" alt="photo" class="img-thumbnail mb-2">
+                                                        {{ article.content }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {# Fin modal #}
+                                    </td>
+                                    <td>
+                                        {% for category in article.category %}
+                                            <a href="{{path('backend_blog_category_show', {'id' : category.id })}}" class="btn btn-secondary btn-sm rounded-pill">{{category.name}}</a>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <a href="{{path('backend_blog_article_edit', {'id' : article.id })}}" class="btn btn-outline-dark btn-sm">Modifier</a>
+
+                                        {% include 'backend/blog/article/_delete_form.html.twig' %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 col-xl-2"></div>
+
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(articles) }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

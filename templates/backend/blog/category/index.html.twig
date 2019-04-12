@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block body %}
+
+
+        <div class="row justify-content-center mt-5 mb-3">
+            <div class="pr-3"><h2 class="text-center">Catégories</h2></div>
+            <div><a href="{{path('backend_blog_category_add')}}" class="btn btn-success"><i class="fas fa-edit"></i>Ajouter une catégorie</a></div>
+        </div>
+
+        {# Flash message #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{label}} my-2 text-center font-weight-bold animated zoomOut delay-3s">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+
+        <div class="container-fluid">
+
+            <div class="row d-flex justify-content-center">
+
+                {% include 'backend/navigation/_navigation.html.twig' %}
+
+                <div class="col-lg-8 px-0">
+
+                    {# Category Table #}
+                    <div class="table-responsive">
+                        <table class="table border bg-light px-4">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">#</th>
+                                    <th class="text-center w-50">Nom</th>
+                                    <th class="text-right pr-5">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in categories %}
+                                    <tr>
+                                        <th scope="row">{{category.id}}</th>
+                                        <td class="text-center">{{category.name}}</td>
+                                        <td class="text-right pr-5">
+                                            <a href="{{path('backend_blog_category_edit', {'id' : category.id })}}" class="btn btn-outline-dark btn-sm">Modifier</a>
+
+                                            {% include 'backend/blog/category/_delete_form.html.twig' %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 col-xl-2"></div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

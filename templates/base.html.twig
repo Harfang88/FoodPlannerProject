@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {# favIco #}
+        <link rel="shortcut icon" href="{{ asset('img/chef.ico') }}" >
+
+        {# Bootstrap #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        {# fontawesome #}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        {# Select2 #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+
+        {# animate CSS #}
+        <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+
+        {# Custom Header & Footer CSS #}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-dark bg-dark d-lg-none">
+                <a class="navbar-brand" href="{{ path('backend_recipe_index') }}">BackOffice</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="{{ path('backend_recipe_index') }}"><i class="fas fa-utensils"></i> Recettes</a>
+                        <a class="nav-item nav-link" href="{{ path('backend_type_index') }}"><i class="fas fa-hourglass-half"></i> Types</a>
+                        <a class="nav-item nav-link" href="{{ path('backend_comment_index') }}"><i class="fas fa-comments"></i> Commentaire</a>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="nav-item nav-link" href="{{ path('backend_user_index') }}">
+                                <i class="fas fa-users-cog"></i> 
+                                Utilisateurs
+                            </a>
+                        {% endif %}
+
+                        <span class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fab fa-blogger"></i> 
+                            Blog
+                            </a>
+                            <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('backend_blog_article_index') }}"><i class="far fa-newspaper"></i> Articles</a>
+                                <a class="dropdown-item" href="{{ path('backend_blog_review_index') }}"><i class="fas fa-comment"></i> Commentaires</a>
+                                <a class="dropdown-item" href="{{ path('backend_blog_category_index') }}"><i class="fas fa-stream"></i> Catégories</a>
+                            </div>
+                        </span>
+
+                        <a href="{{ path('logout') }}" class="btn btn-danger btn-sm m-1">Déconnexion</a>
+                        <a href="http://92.243.8.179/#/" class="nav-link active"><i class="fas fa-hand-point-left"></i> Retour au site</a>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container-fluid hero-section-calendar">
+            <div class="container">
+                <div class="hero-section-calendar-content">
+                    <h1>Gérez vos recettes de la semaine en quelques clics !</h1>
+                    <h4>BackOffice</h4>
+                    <h4>Bienvenue {{ app.user }}</h4>
+                </div>
+            </div>
+        </div>
+
+        {% block body %}{% endblock %}
+
+        <div class="footer mt-4">
+        <div class="container">
+            <div>
+                <div class="row footer-logo">
+                    <div class="col">
+                        <div class="logo">
+                            <div class="logo-image">
+                                <img src=" {{ asset('img/chef.svg') }}" alt="logo" />
+                            </div>
+                            <div class="logo-text">
+                                <h3>FoodPlanner</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footer-column">
+                    <div class="col">
+                        <h3>FoodPlanner</h3>
+                        <p>Foodplanner, le site qui vous fait gagner du temps dans votre organisation des repas de la
+                            semaine et fait votre liste de courses pour vous !</p>
+                    </div>
+                    <div class="col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="#/">Accueil</a></li>
+                            <li><a href="/#/recettes">Les recettes</a></li>
+                            <li><a href="/#/blog">Le blog</a></li>
+                            <li><a href="/#/connexion" class="footer-button">Connexion / Inscription</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Liens utiles</h3>
+                        <ul>
+                            <li><a href="{{ path('documentation') }}">Documentation API</a></li>
+                            <li><a href="#">Mentions légales</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Conditions d'utilisation</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Réseaux sociaux</h3>
+                        <div class="footer-social-media">
+                            <a href="https://www.instagram.com/?hl=fr"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+                            <a href="https://twitter.com/?lang=fr"><i class="fab fa-twitter-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="copyright">
+            <div class="container-fluid">
+                <p>FoodPlanner © - Une application développée avec <i class="fa fa-heart"></i> chez <a
+                        href="#">O'Clock</a>.</p>
+            </div>
+        </div>
+
+        {# Bootstrap JS #}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="{{asset('js/select2.js')}}"></script>
+        <script src="{{ asset('js/ajax.js') }}"></script>
+
+        {# Select2 JS #}
+        {% block javascripts %}{% endblock %}
+
+    </body>
+</html>
+

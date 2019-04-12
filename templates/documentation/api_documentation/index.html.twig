@@ -1,0 +1,215 @@
+{% extends 'documentation/api_documentation/baseDocumentation.html.twig' %}
+
+{% block title %}FoodPlanner - Api documentation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Route</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Méthodes</th>
+                        <th scope="col">Connexion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <th colspan="5">Log</th>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/registration</th>
+                        <td>Créer un compte utilisateur</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/login_check</th>
+                        <td>Connexion</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <th colspan="5">Blog</th>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/article</th>
+                        <td>Articles du Blog</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/article/show</th>
+                        <td>Récupérer un article via son slug</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/category</th>
+                        <td>Catégories du Blog</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/review/add </th>
+                        <td>Ajouter un commentaire au blog</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/review/edit</th>
+                        <td>Editer un commentaire du blog</td>
+                        <td>PATCH</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/review/delete</th>
+                        <td>Supprimer un commentaire du blog</td>
+                        <td>DELETE</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <th scope="row" colspan="5">Application</th>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/comment/add</th>
+                        <td>Ajouter un commentaire</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/comment/delete</th>
+                        <td>Supprimer un commentaire</td>
+                        <td>DELETE</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/comment/show</th>
+                        <td>Commentaires, non bloqués, pour une recette</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/note/add</th>
+                        <td>Ajouter une note à une recette</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/note</th>
+                        <td>Moyenne des notes pour une recette</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/planning  </th>
+                        <td>Planning</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/planning/edit  </th>
+                        <td>Mise à jour du planning</td>
+                        <td>PUT</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/recipe</th>
+                        <td>Recettes</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                     <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/recipe/show</th>
+                        <td>Récupérer une recette via son slug</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-slash text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/recipe/add</th>
+                        <td>Ajouter une recette</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/recipe/edit </th>
+                        <td>Mise à jour d'une recette</td>
+                        <td>PATCH</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/shopping/list </th>
+                        <td>Liste de courses pour un planning repas</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/shopping/list/pdf</th>
+                        <td>PDF de la liste de courses pour un planning repas</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/profil/favoris/add</th>
+                        <td>Ajouter une recette aux favoris d'un utilisateur</td>
+                        <td>POST</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/profil/favoris/delete</th>
+                        <td>Supprimer une recette des favoris d'un utilisateur</td>
+                        <td>DELETE</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                     <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/profil/favoris</th>
+                        <td>Recettes en favoris d'un utilisateur</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/profil/edit</th>
+                        <td>Editer le profil d'un utilisateur</td>
+                        <td>PATCH</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/profil</th>
+                        <td>Profil d'un utilisateur</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">/api/user/status</th>
+                        <td>Status d'un utilisateur(bloqué/non-bloqué)</td>
+                        <td>GET</td>
+                        <td class="text-center"><i class="fas fa-user-check text-success"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

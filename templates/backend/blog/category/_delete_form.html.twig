@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('backend_blog_category_delete', {'id' : category.id}) }}" onsubmit="return confirm('Êtes vous sûre de vouloir effacer cette catégorie ?');" class="d-inline-block">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+    <button class="btn btn-outline-danger btn-sm">Supprimer</button>
+</form>

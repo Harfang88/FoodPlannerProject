@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaires du Blog{% endblock %}
+
+{% block body %}
+
+ <h2 class="text-center mt-5 mb-3">
+        Commentaires du blog <span class="font-italic h4">({{ reviews|length }})</span>
+    </h2>
+
+
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+            <div class="col-lg-8 px-0">
+                {# sorting of properties based on query components #}
+                <span>Trier par :</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(reviews, 'Article', 'a.title') }}</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(reviews, 'Auteur', 'u.username') }}</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(reviews, 'Status', 'r.isBlocked') }}</span>
+
+                {% if reviews.isSorted('r.isBlocked') or reviews.isSorted('a.title') or reviews.isSorted('u.username')  %}
+                    <span class=" ml-4">
+                        <i class="fas fa-ban text-danger"></i> <a href="{{ path('backend_blog_review_index') }}" class="text-danger"> Supprimer les filtres</a>
+                    </span>
+                {% endif %}
+
+
+                {# Reviews Table #}
+                <div class="table-responsive">
+                    <table class="table px-2border bg-light">
+                        <thead>
+                            <tr>
+                                <th class="w-75">Commentaires</th>
+                                <th class="d-none d-md-table-cell">Auteurs</th>
+                                <th class="d-none d-md-table-cell">Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for review in reviews %}
+                            <tr class="{% if review.isBlocked %}bg-dark text-light{% endif %} activated">
+                                <td>
+                                {{review.body}}
+                                <br>
+                                <blockquote class="blockquote-footer">
+                                    <p>{{review.article}}</p>
+                                </blockquote>
+                                </td>
+                                <td class="d-none d-md-table-cell">{{review.author}}</td>
+                                <td class="d-none d-md-table-cell">{{review.createdAt|date("d-m-Y")}}</td>
+                                <td>
+                                     <a href="{{ path('backend_blog_review_block',{ id : review.id}) }}" class="btn btn-outline-success btn-sm block-blog-review
+                                    {% if not review.isBlocked %} d-none {% endif %}
+                                    " title="Débloquer"><i class="fas fa-unlock-alt"></i></a>
+                                
+                                    <a href="{{ path('backend_blog_review_block',{ id : review.id}) }}" class="btn btn-outline-danger btn-sm block-blog-review
+                                    {% if review.isBlocked %} d-none {% endif %}
+                                    " title="Bloquer"><i class="fas fa-lock"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 col-xl-2"></div>
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(reviews) }}
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

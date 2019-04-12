@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette{% endblock %}
+
+{% block body %}
+
+<h2 class="text-center mt-5 mb-3">Ajouter une recette</h2>
+
+<div class="container-fluid">
+
+    <div class="row d-flex justify-content-center">
+
+        {% include 'backend/navigation/_navigation.html.twig' %}
+
+        <div class="col-lg-8 bg-light py-3 px-2 px-sm-5 rounded">
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <h6>Titre</h6>
+            {{ form_widget(form.title) }}
+
+            <h6 class="mt-3">Durée de préparation</h6>
+
+            {{ form_widget(form.time) }}
+
+            <h6 class="mt-3">Difficulté</h6>
+            {{ form_widget(form.difficulty) }}
+
+            <h6 class="mt-3">Nombre de calories</h6>
+            {{ form_widget(form.calorie) }}
+
+            <h6 class="mt-3">Type de plat</h6>
+            {{ form_widget(form.type) }}
+
+            <h6 class="mt-3">Photo de présentation</h6>
+            {{ form_widget(form.picture) }}
+            
+            <h6 class="mt-3 mb-3">Etapes</h6>
+
+            <ul class="steps row" data-prototype="{{ form_widget(form.etapes.vars.prototype)|e('html_attr') }}" style="list-style:none">
+                {% for etape in form.etapes %}
+                <li class="mb-2 col-12 col-xl-6 p-2">
+                    <div class="border rounded bg-secondary p-2">
+                    	<span>{{ form_row(etape.etapeOrder) }}</span>
+                    	<span>{{ form_row(etape.description) }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <h6 class="mt-3">Ingredients</h6>
+
+            <ul class="ingredients row" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" style="list-style:none">
+                {% for ingredient in form.ingredients %}
+                    <li class="mb-2 mb-3 col-12 col-xl-6 p-2">
+                        <div class="border rounded bg-secondary p-2">
+                            <span>{{ form_row(ingredient.name) }}</span>
+                            <span>{{ form_row(ingredient.quantity) }}</span>
+                            <span>{{ form_row(ingredient.unit) }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <button type="submit" class="btn btn-success">Ajouter</button>
+
+            <a href="{{ path('backend_recipe_index') }}" class="btn btn-secondary ml-1">Annuler</a>
+
+            {{ form_end(form) }}
+
+        
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+        crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}

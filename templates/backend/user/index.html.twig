@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    <h2 class="text-center mt-5 mb-3">
+        Liste des utilisateurs <span class="font-italic h4">({{ users|length }})</span>
+    </h2>
+
+    {# Flash message #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{label}} my-2 text-center font-weight-bold animated zoomOut delay-3s">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+            <div class="col-lg-8 px-0">
+                <div class="table-responsive">
+
+                    <table class="table border bg-light">
+                        <thead>
+                            <tr>
+                                <th>Nom d'utilisateur</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr class="{% if user.isBlocked %}bg-dark text-light{% endif %} activated">
+                                <td>{{user.username}}</td>
+                                <td>{{user.role}}</td>
+                                <th>
+                                    <a href="{{path('backend_user_role', {'id' : user.id })}}" class="btn btn-outline-secondary btn-sm">Modifier</a>
+                                    
+                                    <a href="{{path('backend_user_block', {'id' : user.id })}}" class="btn btn-outline-success btn-sm block-user {% if not user.isBlocked %} d-none {% endif %}" title="Débloquer"><i class="fas fa-unlock-alt"></i></a>
+                                   
+                                    <a href="{{path('backend_user_block', {'id' : user.id })}}" class="btn btn-outline-danger btn-sm block-user {% if user.isBlocked %} d-none {% endif %}" title="Bloquer"><i class="fas fa-lock"></i></a>
+                                    
+
+                                </th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 col-xl-2"></div>
+        </div>
+    </div>
+
+{% endblock %}

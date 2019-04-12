@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes{% endblock %}
+
+{% block body %}
+
+    <h2 class="text-center mt-5 mb-3">
+        Liste des recettes <span class="font-italic h4">({{ recipes|length }})</span>
+        <a href="{{ path('backend_recipe_new') }}" class="btn btn-success ml-4"><i class="fas fa-edit"></i>Créer nouveau</a>
+    </h2>
+
+    {# Flash message #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{label}} my-2 text-center font-weight-bold animated zoomOut delay-3s">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+            <div class="col-lg-8 px-0">
+            
+                {# sorting of properties based on query components #}
+                <span>Trier par :</span>
+
+                <span class=" mx-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(recipes, 'Id', 'r.id') }}</span>
+
+                <span class=""><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(recipes, 'Titre', 'r.title') }}</span> 
+
+                <span class=" ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(recipes, 'Date', 'r.created_at') }}</span>
+
+                {% if recipes.isSorted('r.id') or recipes.isSorted('r.title') or recipes.isSorted('r.created_at')%}
+
+                    <span class=" ml-4">
+                        <i class="fas fa-ban text-danger"></i><a href="{{ path('backend_recipe_index') }}" class="text-danger"> Supprimer les filtres</a>
+                    </span>
+
+                {% endif %}
+
+                <div class="table-responsive mt-2">
+
+                    <table class="table bg-light border">
+                        <thead>
+                            <tr>
+                                <th class="pl-5">Id</th>
+                                <th class="text-center ">Demande de publication</th>
+                                <th class="ml-3 w-50">Nom</th>
+                                <th class="ml-3 ">Date de publication</th>
+                                <th class="text-right pr-5 w-25">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for recipe in recipes %}
+                            <tr>
+                                <td class="pl-5">{{ recipe.id }}</td>
+                                <td class="text-center">
+                                    {% if recipe.publishable %}
+                                    <a href="{{ path('backend_recipe_validate', { id : recipe.id }) }}" title="Publier la recette"><i class="far fa-check-circle text-primary"></i></a>
+                                    {% else %}
+                                        <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="ml-3">
+                                    {{ recipe.title }}
+                                    {# Modal trigger #}
+                                    <a data-toggle="modal" data-target="#recipe{{ recipe.id }}" class="text-primary">
+                                         <i class="far fa-eye"></i>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="recipe{{ recipe.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{ recipe.title }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            <div class="modal-body">
+                                                <img src="{{ recipe.picture }}" alt="photo" class="img-thumbnail mb-2">
+
+                                                {% for etape in recipe.etapes| sortbyfield('etapeOrder', 'ASC') %}
+                                                    <span class="font-weight-bold mb-2">Etapes n°{{ etape.etapeOrder }}:</span>
+                                                    <div>
+                                                        {{ etape.description }}
+                                                    </div>
+                                                    <br>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {# Fin modal #}
+                                 </td>
+
+                                <td>{{ recipe.createdAt|date('d/m/Y') }}</td>
+
+                                <td class="text-right pr-5">
+                                    <a href="{{ path('backend_recipe_edit', { 'id' : recipe.id }) }}"
+                                        class="btn btn-outline-secondary btn-sm my-1" title="Modifier la recette">Modifier</a>
+                                    {% include 'backend/recipe/_delete_form.html.twig' %}
+                                </td>
+
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6">Aucune recette</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 col-xl-2">
+            </div>
+
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(recipes) }}
+            </div>
+        </div>
+
+        
+
+
+    </div>
+
+{% endblock %}

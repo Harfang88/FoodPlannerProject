@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Article{% endblock %}
+
+{% block body %}
+   <div class="container mt-5 bg-light">
+        <h2 class="text-center">Ajouter un article</h2>
+
+        {# Add Form #}
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        <a href="{{path('backend_blog_article_add')}}"><button type="submit" class="btn btn-success">Ajouter</button></a>
+        <a href="{{path('backend_blog_article_index')}}" class="btn btn-dark">Annuller</a>
+        {{form_end(form)}}
+    </div>
+{% endblock %}

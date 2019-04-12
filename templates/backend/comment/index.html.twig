@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaires des Recettes{% endblock %}
+
+{% block body %}
+
+    <h2 class="text-center mt-5 mb-3">
+        Commentaires de recettes 
+        <span class="font-italic h4">({{ comments|length }})</span>
+    </h2>
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-center">
+
+            {% include 'backend/navigation/_navigation.html.twig' %}
+
+
+            <div class="col-lg-8 px-0">
+
+            {# sorting of properties based on query components #}
+                <span>Trier par :</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(comments, 'Recette', 'r.title') }}</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(comments, 'Auteur', 'a.username') }}</span>
+
+                <span class="ml-4"><i class="fas fa-sort text-primary"></i> {{ knp_pagination_sortable(comments, 'Status', 'c.isBlocked') }}</span>
+
+                {% if comments.isSorted('c.isBlocked') or comments.isSorted('r.title') or comments.isSorted('a.username')  %}
+                    <span class=" ml-4">
+                        <i class="fas fa-ban text-danger"></i> <a href="{{ path('backend_comment_index') }}" class="text-danger"> Supprimer les filtres</a>
+                    </span>
+                {% endif %}
+                <div class="table-responsive mt-2">
+                
+                    <table class="table bg-light border">
+                        <thead>
+                            <tr>
+                                <th class="w-75">Commentaires</th>
+                                <th class="d-none d-md-table-cell">Auteurs</th>
+                                <th class="d-none d-md-table-cell">Date</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            <tr class="{% if comment.isBlocked %}bg-dark text-light{% endif %} activated" >
+                                <td>
+                                  {{comment.body}}
+                                  <br>
+                                  <blockquote class="blockquote-footer">
+                                      <p>{{comment.recipe}}</p>
+                                  </blockquote>
+                                </td>
+                                <td class="d-none d-md-table-cell">{{comment.author}}</td>
+                                <td class="d-none d-md-table-cell">{{comment.createdAt|date("d-m-Y")}}
+                                <td>
+                                    <a href="{{path('backend_comment_block', {'id' : comment.id })}}" class="btn btn-outline-success btn-sm block-comment
+                                    {% if not comment.isBlocked %}
+                                     d-none 
+                                    {% endif %}
+                                    " title="Débloquer">
+                                    <i class="fas fa-unlock-alt"></i></a>
+
+                                    <a href="{{path('backend_comment_block', {'id' : comment.id })}}" class="btn btn-outline-danger btn-sm block-comment
+                                    {% if comment.isBlocked %} d-none {% endif %}
+                                    " title="Bloquer">
+                                    <i class="fas fa-lock"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="d-none d-lg-block col-lg-1 col-xl-2">
+            </div>
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(comments) }}
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

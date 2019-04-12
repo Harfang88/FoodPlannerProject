@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{article.title}}{% endblock %}
+
+{% block body %}
+
+        <h2 class ="text-center">{{article.title}}</h2>
+
+        {# Article Title #}
+        <div class="text-center">
+            {% for category in article.category %}
+                <a href="{{path('backend_blog_category_show', {'id' : category.id })}}" class="btn btn-secondary btn-sm rounded-pill">{{category.name}}</a>
+            {% endfor %}
+        </div>
+
+        <div class="container mt-4 p-4 bg-light rounded shadow-lg">
+
+        {# Article Content #}
+        <div>
+            <p>{{article.content}}</p>
+        </div>
+        <p>Crée le : {{article.createdAt|date("d/m/Y")}}</p>
+        <p>Auteur : {{article.user.username}}</p>
+        
+        <a href="{{path('backend_blog_article_edit', {'id' : article.id })}}" class="btn btn-warning">Modifier</a>
+        <a href="{{path('backend_blog_article_index')}}" class="btn btn-dark">Retour</a>
+    </div>
+{% endblock %}

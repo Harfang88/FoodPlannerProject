@@ -1,0 +1,35 @@
+<nav class="d-none d-lg-block col-lg-3 col-xl-2 px-3">
+    <ul class="nav flex-lg-column ml-4 ">
+        <li class="">
+            <h6><i class="fas fa-calendar-alt"></i> FoodPlanner</h6>
+        </li>
+        <li class="nav-item"><a href="{{ path('backend_recipe_index') }}" class="nav-link active"><i class="fas fa-utensils"></i> Recettes</a></li>
+        <li class="nav-item"><a href="{{ path('backend_type_index') }}" class="nav-link active"><i class="fas fa-hourglass-half"></i> Types</a>
+        </li>
+        <li class="nav-item"><a href="{{ path('backend_comment_index') }}" class="nav-link active"><i class="fas fa-comments"></i> Commentaires</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a href="{{ path('backend_user_index') }}" class="nav-link active">
+                    <i class="fas fa-users-cog"></i> 
+                    Utilisateurs
+                </a>
+            </li>
+        
+        {% endif %}
+        
+    </ul>
+    <ul class="nav flex-lg-column mt-4 ml-4">
+        <li class="">
+            <h6><i class="fab fa-blogger"></i> Blog</h6>
+        </li>
+        <li class="nav-item"><a href="{{ path('backend_blog_article_index') }}" class="nav-link active"><i class="far fa-newspaper"></i> Articles</a></li>
+        <li class="nav-item"><a href="{{ path('backend_blog_review_index') }}" class="nav-link active"><i class="fas fa-comment"></i> Commentaires</a></li>
+        <li class="nav-item"><a href="{{ path('backend_blog_category_index') }}" class="nav-link active"><i class="fas fa-stream"></i> Catégories</a></li>
+    </ul>
+
+    <ul class="nav flex-lg-column mt-4 ml-5">
+        <li><hr></li>
+        <li class="nav-item"><a href="{{ path('logout') }}" class="btn btn-danger btn-sm m-1">Déconnexion</a></li>
+        <li class="nav-item"><a href="http://92.243.8.179/#/" class="nav-link active"><i class="fas fa-hand-point-left"></i> Retour au site</a></li>
+    </ul>
+</nav>

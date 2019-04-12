@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types de recettes{% endblock %}
+
+{% block body %}
+
+    <h2 class="text-center mt-5 mb-3">
+    Types de recettes <span class="font-italic h4">({{ types|length }})</span>
+    <a href="{{ path('backend_type_add') }}" class="btn btn-success ml-4"><i class="fas fa-edit"></i>Créer nouveau</a>
+    </h2>
+
+    {# Flash message #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{label}} my-2 text-center font-weight-bold animated zoomOut delay-3s">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="container-fluid">
+
+    <div class="row d-flex justify-content-center">
+
+        {% include 'backend/navigation/_navigation.html.twig' %}
+
+        <div class="col-lg-8 px-0">
+            <div class="table-responsive">
+
+                <table class="table bg-light border">
+                    <thead>
+                        <tr>
+                            <th class="w-50">Name</th>
+                            <th>Nombre de recettes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for type in types %}
+                            <tr>
+                                <td>{{ type.name }}</td>
+                                <td>{{ type.recipes|length }}</td>
+                                <td>
+                                    <a href="{{ path('backend_type_edit', {'id': type.id}) }}" class ="btn btn-outline-secondary btn-sm">Modifier</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>Aucune catégories</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="d-none d-lg-block col-lg-1 col-xl-2">
+        </div>
+    </div>
+{% endblock %}
+

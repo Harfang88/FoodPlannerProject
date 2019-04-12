@@ -1,0 +1,28 @@
+.hero-section-calendar {
+    padding: 50px 0px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    background-image: url(../img/rsz_lily-banse-365344-unsplash.jpg);
+
+}
+.hero-section-calendar:before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, #343890, #81f1b2);
+    opacity: 0.8;
+}
+.hero-section-calendar-content {
+    z-index: 100;
+    position: relative;
+    color: #fff;
+}
+.hero-section-calendar-content p {
+    color: #fff !important;
+}

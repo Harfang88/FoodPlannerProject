@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Type{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mt-5 mb-3">Créer un nouveau Type</h2>
+
+<div class="container-fluid">
+
+    <div class="row d-flex justify-content-center">
+
+        {% include 'backend/navigation/_navigation.html.twig' %}
+
+        <div class="col-lg-8 ">
+            <div class="bg-light py-3 px-4 rounded">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-success">Ajouter</button>
+                <a href="{{ path('backend_type_index') }}" class="btn btn-secondary ml-1">Annuler</a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

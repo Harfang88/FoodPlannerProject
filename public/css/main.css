@@ -1,0 +1,22 @@
+/* 
+Colors :
+
+- couleur bleu de la side bar gauche : rgba(238, 244, 251, 1.00)
+
+$blue: #343890;
+$blue-light: lighten($blue, 40%);
+$blue-dark: darken($blue, 20%);
+
+$green: #81F1B2;
+$green-light: lighten($green, 40%);
+$green-dark: darken($green, 20%);
+
+$red :#ec4f4f;
+$red-light :lighten($red, 40%);
+
+$content-color: #a8a8a8;
+$title-color: $blue;
+
+$box-shadow: 1px 10px 20px #cecece;
+
+*/

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+        <h1>Le pseudo ou le mot de passe n'est pas correct !</h1>
+        
+        <p>
+            <img class="img-fluid" src="{{ asset('img/401.jpg' ) }}" alt="photo-401">
+        </p>
+        
+        <p>
+            <a href="{{ path('backend_recipe_index') }}">Revenir à l'accueil</a>
+        </p>  
+
+{% endblock %}
